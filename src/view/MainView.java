@@ -4,13 +4,14 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class MainView extends JFrame {
     public MainView() {
-        FlatMacLightLaf.setup();
-        setTitle("Main View with Card Layout");
-        setSize(800, 600);
+        // Setup theme
+        FlatLightLaf.setup();
+        setTitle("Ứng dụng mã hoá");
+        setSize(600, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new CardLayout());
 
@@ -19,8 +20,10 @@ public class MainView extends JFrame {
 
         ClassicSymmetricView classicSymmetricView = new ClassicSymmetricView();
         ModernSymmetricView modernSymmetricView = new ModernSymmetricView();
+        HashView hashView = new HashView();
         tabbedPane.addTab("Mã hoá đối xứng cổ điện", classicSymmetricView);
         tabbedPane.addTab("Mã hoá đối xứng hiện đại", modernSymmetricView);
+        tabbedPane.addTab("Hash", hashView);
 
         setVisible(true);
     }

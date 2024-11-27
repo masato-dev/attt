@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -133,6 +134,8 @@ public class ModernSymmetricView extends JPanel {
         // Nút giải mã file
         decryptFileButton = new JButton("Giải mã File");
         panel.add(decryptFileButton);
+
+        panel.setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
 
         add(panel, BorderLayout.SOUTH);
 

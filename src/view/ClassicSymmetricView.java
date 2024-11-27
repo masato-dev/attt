@@ -38,7 +38,7 @@ public class ClassicSymmetricView extends JPanel {
 
         // Control panel
         controlPanel.setLayout(new FlowLayout());
-        controlPanel.add(new JLabel("Select Algorithm:"));
+        controlPanel.add(new JLabel("Chọn thuật toán:"));
         String[] algorithms = {"Caesar", "Substitution", "Vigenere", "Affine", "Hill"};
         algorithmComboBox = new JComboBox<>(algorithms);
         controlPanel.add(algorithmComboBox);
@@ -47,8 +47,8 @@ public class ClassicSymmetricView extends JPanel {
         keyField = new JTextField(10);
         controlPanel.add(keyField);
         
-        JButton encryptButton = new JButton("Encrypt");
-        JButton decryptButton = new JButton("Decrypt");
+        JButton encryptButton = new JButton("Mã hoá");
+        JButton decryptButton = new JButton("Giải mã");
         controlPanel.add(encryptButton);
         controlPanel.add(decryptButton);
 
