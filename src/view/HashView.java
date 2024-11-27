@@ -126,12 +126,4 @@ public class HashView extends JPanel {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Giao Diện Hash");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new HashView());
-        frame.pack();
-        frame.setVisible(true);
-    }
 }

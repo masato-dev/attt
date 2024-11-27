@@ -20,9 +20,11 @@ public class MainView extends JFrame {
 
         ClassicSymmetricView classicSymmetricView = new ClassicSymmetricView();
         ModernSymmetricView modernSymmetricView = new ModernSymmetricView();
+        AsymmetricView asymmetricView = new AsymmetricView();
         HashView hashView = new HashView();
         tabbedPane.addTab("Mã hoá đối xứng cổ điện", classicSymmetricView);
         tabbedPane.addTab("Mã hoá đối xứng hiện đại", modernSymmetricView);
+        tabbedPane.addTab("Mã hoá bất đối xứng", asymmetricView);
         tabbedPane.addTab("Hash", hashView);
 
         setVisible(true);
