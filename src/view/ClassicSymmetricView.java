@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ClassicSymmetric extends JPanel {
+public class ClassicSymmetricView extends JPanel {
 
     // Main frame
     private JTextArea inputTextArea;
@@ -12,7 +12,7 @@ public class ClassicSymmetric extends JPanel {
     private JComboBox<String> algorithmComboBox;
     private JTextField keyField;
 
-    public ClassicSymmetric() {
+    public ClassicSymmetricView() {
         
         // Create panels
         JPanel inputPanel = new JPanel();

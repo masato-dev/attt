@@ -21,10 +21,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import controller.BaseController;
+import controller.ModernSymmetricController;
 import enums.Action;
 
-public class ModernSymmetric extends JPanel {
+public class ModernSymmetricView extends JPanel {
     private JTextArea textArea;
     private JTextField keyField;
     private JComboBox<String> algorithmComboBox, keySizeComboBox, modeCombobox, paddingCombobox;
@@ -63,11 +63,12 @@ public class ModernSymmetric extends JPanel {
         "ISO10126Padding",
         "ANSI_X.923Padding",
         "ZeroPadding",
+        "NoPadding",
     };
 
     private int keySelectIndex = 3;
 
-    public ModernSymmetric() {
+    public ModernSymmetricView() {
         setLayout(new BorderLayout());
 
         textArea = new JTextArea();
@@ -93,6 +94,7 @@ public class ModernSymmetric extends JPanel {
         JPanel keyPanel = new JPanel();
         keyField = new JTextField();
         loadKeyButton = new JButton("Tải key");
+        loadKeyButton.addActionListener(new ModernSymmetricController(this, Action.LoadKey));
         keyPanel.setLayout(new GridLayout(1, 2));
         keyPanel.add(keyField);
         keyPanel.add(loadKeyButton);
@@ -114,6 +116,7 @@ public class ModernSymmetric extends JPanel {
 
         saveKeyButton = new JButton("Lưu Key");
         panel.add(saveKeyButton);
+        saveKeyButton.addActionListener(new ModernSymmetricController(this, Action.SaveKey));
 
         // Nút mã hóa
         encryptButton = new JButton("Mã hóa");
@@ -134,13 +137,13 @@ public class ModernSymmetric extends JPanel {
         add(panel, BorderLayout.SOUTH);
 
         // Thao tác khi nút "Tạo Key" được nhấn
-        generateKeyButton.addActionListener(new BaseController(this, Action.GenerateKey));
+        generateKeyButton.addActionListener(new ModernSymmetricController(this, Action.GenerateKey));
 
         // Thao tác khi nút "Mã hóa" được nhấn
-        encryptButton.addActionListener(new BaseController(this, Action.Encrypt));
+        encryptButton.addActionListener(new ModernSymmetricController(this, Action.Encrypt));
 
         // Thao tác khi nút "Giải mã" được nhấn
-        decryptButton.addActionListener(new BaseController(this, Action.Decrypt));
+        decryptButton.addActionListener(new ModernSymmetricController(this, Action.Decrypt));
 
         algorithmComboBox.addActionListener(new ActionListener() {
             @Override

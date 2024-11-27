@@ -1,5 +1,5 @@
 package enums;
 
 public enum Action {
-    GenerateKey, Encrypt, Decrypt    
+    GenerateKey, Encrypt, Decrypt, SaveKey, LoadKey
 }

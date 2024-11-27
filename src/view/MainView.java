@@ -1,12 +1,14 @@
 package view;
-
 import java.awt.CardLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 public class MainView extends JFrame {
     public MainView() {
+        FlatMacLightLaf.setup();
         setTitle("Main View with Card Layout");
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -15,12 +17,13 @@ public class MainView extends JFrame {
         JTabbedPane tabbedPane = new JTabbedPane();
         add(tabbedPane);
 
-        ClassicSymmetric classicSymmetric = new ClassicSymmetric();
-        ModernSymmetric modernSymmetric = new ModernSymmetric();
-        tabbedPane.addTab("Mã hoá đối xứng cổ điện", classicSymmetric);
-        tabbedPane.addTab("Mã hoá đối xứng hiện đại", modernSymmetric);
+        ClassicSymmetricView classicSymmetricView = new ClassicSymmetricView();
+        ModernSymmetricView modernSymmetricView = new ModernSymmetricView();
+        tabbedPane.addTab("Mã hoá đối xứng cổ điện", classicSymmetricView);
+        tabbedPane.addTab("Mã hoá đối xứng hiện đại", modernSymmetricView);
 
         setVisible(true);
     }
 }
+
 
