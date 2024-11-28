@@ -1,8 +1,18 @@
 package view;
 import javax.swing.*;
+
+import algo.ClassicSymmetric;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
 
 public class ClassicSymmetricView extends JPanel {
 
@@ -47,8 +57,14 @@ public class ClassicSymmetricView extends JPanel {
         keyField = new JTextField(10);
         controlPanel.add(keyField);
         
+        JButton generateKeyButton = new JButton("Tạo key");
+        JButton saveKeyButton = new JButton("Lưu key");
+        JButton loadKeyButton = new JButton("Load key");
         JButton encryptButton = new JButton("Mã hoá");
         JButton decryptButton = new JButton("Giải mã");
+        controlPanel.add(saveKeyButton);
+        controlPanel.add(loadKeyButton);
+        controlPanel.add(generateKeyButton);
         controlPanel.add(encryptButton);
         controlPanel.add(decryptButton);
 
@@ -56,23 +72,120 @@ public class ClassicSymmetricView extends JPanel {
         encryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String algorithm = (String) algorithmComboBox.getSelectedItem();
-                String key = keyField.getText();
-                String inputText = inputTextArea.getText();
-                String encryptedText = encrypt(inputText, algorithm, key);
-                outputTextArea.setText(encryptedText);
+                try {
+                    String algorithm = (String) algorithmComboBox.getSelectedItem();
+                    String key = keyField.getText();
+                    if (key.isEmpty()) {
+                        JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Chưa nhập key", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    String inputText = inputTextArea.getText();
+                    if (inputText.isEmpty()) {
+                        JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Chưa nhập input", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    String encryptedText = encrypt(inputText, algorithm, key);
+                    outputTextArea.setText(encryptedText);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Lỗi: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
         decryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String algorithm = (String) algorithmComboBox.getSelectedItem();
-                String key = keyField.getText();
-                String inputText = inputTextArea.getText();
-                String decryptedText = decrypt(inputText, algorithm, key);
-                outputTextArea.setText(decryptedText);
+                try {
+                    String algorithm = (String) algorithmComboBox.getSelectedItem();
+                    String key = keyField.getText();
+                    if (key.isEmpty()) {
+                        JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Chưa nhập key", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    String inputText = inputTextArea.getText();
+                    if (inputText.isEmpty()) {
+                        JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Chưa nhập input", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    String decryptedText = decrypt(inputText, algorithm, key);
+                    outputTextArea.setText(decryptedText);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Lỗi: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
+        });
+
+        generateKeyButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String algorithm = (String) algorithmComboBox.getSelectedItem();
+                String key = generateKey(algorithm);
+                keyField.setText(key);
+            }
+            
+        });
+
+        saveKeyButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String key = keyField.getText();
+                if (key.isEmpty()) {
+                    JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Key field is empty", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Save Key to File");
+                int userSelection = fileChooser.showSaveDialog(ClassicSymmetricView.this);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    
+                    if (!fileToSave.getName().endsWith(".txt")) {
+                        fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
+                    }
+
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+                        writer.write(key);
+                        JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Key saved to file: " + fileToSave.getAbsolutePath());
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Error saving key: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        loadKeyButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Load Key from File");
+                int userSelection = fileChooser.showOpenDialog(ClassicSymmetricView.this);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToOpen = fileChooser.getSelectedFile();
+                    try (BufferedReader reader = new BufferedReader(new FileReader(fileToOpen))) {
+                        StringBuilder keyBuilder = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            keyBuilder.append(line);
+                        }
+                        String loadedKey = keyBuilder.toString().trim();
+                        if (!loadedKey.isEmpty()) {
+                            keyField.setText(loadedKey);
+                            JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Đã load key từ file: " + fileToOpen.getAbsolutePath());
+                        } else {
+                            JOptionPane.showMessageDialog(ClassicSymmetricView.this, "File trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(ClassicSymmetricView.this, "Lỗi khi load file: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+            
         });
 
         // Add panels to the frame
@@ -83,19 +196,36 @@ public class ClassicSymmetricView extends JPanel {
         this.setVisible(true);
     }
 
+    private String generateKey(String algorithm) {
+        switch (algorithm) {
+            case "Caesar":
+                return ClassicSymmetric.generateCaesarKey();
+            case "Substitution":
+                return ClassicSymmetric.generateSubstitutionKey();
+            case "Vigenere":
+                return ClassicSymmetric.generateVigenereKey(new Random().nextInt(120));
+            case "Affine":
+                return ClassicSymmetric.generateAffineKey();
+            case "Hill":
+                return ClassicSymmetric.generateHillKey();
+            default:
+                return "";
+        }
+    }
+
     // Method to encrypt text based on selected algorithm
     private String encrypt(String text, String algorithm, String key) {
         switch (algorithm) {
             case "Caesar":
-                return caesarCipher(text, Integer.parseInt(key));
+                return ClassicSymmetric.caesarEncrypt(text, key);
             case "Substitution":
-                return substitutionCipher(text, key);
+                return ClassicSymmetric.substitutionEncrypt(text, key);
             case "Vigenere":
-                return vigenereCipher(text, key, true);
+                return ClassicSymmetric.vigenereEncrypt(text, key);
             case "Affine":
-                return affineCipher(text, Integer.parseInt(key.split(",")[0]), Integer.parseInt(key.split(",")[1]));
+                return ClassicSymmetric.affineEncrypt(text, key.split(",")[0], key.split(",")[1]);
             case "Hill":
-                return hillCipher(text, key);
+                return ClassicSymmetric.hillEncrypt(text, key);
             default:
                 return text;
         }
@@ -105,87 +235,19 @@ public class ClassicSymmetricView extends JPanel {
     private String decrypt(String text, String algorithm, String key) {
         switch (algorithm) {
             case "Caesar":
-                return caesarCipher(text, -Integer.parseInt(key));
+                return ClassicSymmetric.caesarDecrypt(text, key);
             case "Substitution":
-                return substitutionCipher(text, key); // You need a reverse mapping for decryption
+                return ClassicSymmetric.substitutionDecrypt(text, key);
             case "Vigenere":
-                return vigenereCipher(text, key, false);
+                return ClassicSymmetric.vigenereDecrypt(text, key);
             case "Affine":
-                return affineCipher(text, Integer.parseInt(key.split(",")[0]), Integer.parseInt(key.split(",")[1])); // You need inverse logic for decryption
+                return ClassicSymmetric.affineDecrypt(text, key.split(",")[0], key.split(",")[1]);
             case "Hill":
-                return hillCipher(text, key); // Reverse Hill cipher needs to be implemented
+                return ClassicSymmetric.hillDecrypt(text, key);
             default:
                 return text;
         }
-    }
-
-    // Caesar Cipher
-    private String caesarCipher(String text, int shift) {
-        StringBuilder result = new StringBuilder();
-        for (char character : text.toCharArray()) {
-            if (Character.isLetter(character)) {
-                char base = (Character.isLowerCase(character)) ? 'a' : 'A';
-                result.append((char) ((character - base + shift) % 26 + base));
-            } else {
-                result.append(character);
-            }
-        }
-        return result.toString();
-    }
-
-    // Substitution Cipher (basic example, assumes key is a string of alphabet letters)
-    private String substitutionCipher(String text, String key) {
-        String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        StringBuilder result = new StringBuilder();
-        for (char character : text.toCharArray()) {
-            int index = alphabet.indexOf(character);
-            if (index != -1) {
-                result.append(key.charAt(index));
-            } else {
-                result.append(character);
-            }
-        }
-        return result.toString();
-    }
-
-    // Vigenere Cipher
-    private String vigenereCipher(String text, String key, boolean encrypt) {
-        StringBuilder result = new StringBuilder();
-        key = key.toLowerCase();
-        int keyIndex = 0;
-        for (char character : text.toCharArray()) {
-            if (Character.isLetter(character)) {
-                char base = (Character.isLowerCase(character)) ? 'a' : 'A';
-                int shift = key.charAt(keyIndex % key.length()) - 'a';
-                if (!encrypt) {
-                    shift = -shift;
-                }
-                result.append((char) ((character - base + shift + 26) % 26 + base));
-                keyIndex++;
-            } else {
-                result.append(character);
-            }
-        }
-        return result.toString();
-    }
-
-    // Affine Cipher
-    private String affineCipher(String text, int a, int b) {
-        StringBuilder result = new StringBuilder();
-        for (char character : text.toCharArray()) {
-            if (Character.isLetter(character)) {
-                char base = (Character.isLowerCase(character)) ? 'a' : 'A';
-                result.append((char) (((a * (character - base) + b) % 26) + base));
-            } else {
-                result.append(character);
-            }
-        }
-        return result.toString();
-    }
-
-    // Hill Cipher
-    private String hillCipher(String text, String key) {
-        // Implement Hill cipher (needs a 2x2 or 3x3 matrix for encryption)
-        return text; // Placeholder for actual Hill cipher implementation
-    }
+    }   
 }
+
+

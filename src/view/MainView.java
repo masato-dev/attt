@@ -11,9 +11,10 @@ public class MainView extends JFrame {
         // Setup theme
         FlatLightLaf.setup();
         setTitle("Ứng dụng mã hoá");
-        setSize(600, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(900, 600);
         setLayout(new CardLayout());
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JTabbedPane tabbedPane = new JTabbedPane();
         add(tabbedPane);
@@ -22,7 +23,7 @@ public class MainView extends JFrame {
         ModernSymmetricView modernSymmetricView = new ModernSymmetricView();
         AsymmetricView asymmetricView = new AsymmetricView();
         HashView hashView = new HashView();
-        tabbedPane.addTab("Mã hoá đối xứng cổ điện", classicSymmetricView);
+        tabbedPane.addTab("Mã hoá đối xứng cổ điển", classicSymmetricView);
         tabbedPane.addTab("Mã hoá đối xứng hiện đại", modernSymmetricView);
         tabbedPane.addTab("Mã hoá bất đối xứng", asymmetricView);
         tabbedPane.addTab("Hash", hashView);

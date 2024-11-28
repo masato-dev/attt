@@ -17,7 +17,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.swing.JFileChooser;
 
-import algo.ModrenSymmetric;
+import algo.ModernSymmetric;
 import enums.Action;
 import view.ModernSymmetricView;
 
@@ -35,7 +35,11 @@ public class ModernSymmetricController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (action) {
             case GenerateKey:
-                doGenerateKey();
+                try {
+                    doGenerateKey();
+                } catch (Exception ex) {
+                    view.showMessageDialog(ex.getMessage());
+                }
                 break;
             case Encrypt:
                 doEncrypt();
@@ -54,10 +58,14 @@ public class ModernSymmetricController implements ActionListener {
         }
     }
 
-    private void doGenerateKey() {
+    private void doGenerateKey() throws Exception {
         String selectedAlgorithm = (String) view.getAlgorithmComboBox().getSelectedItem();
-        int keySize = Integer.parseInt((String) view.getKeySizeComboBox().getSelectedItem());
-        String key = ModrenSymmetric.generateKey(selectedAlgorithm, keySize);
+        int keySize = 0;
+        if (selectedAlgorithm.equals("Blowfish") || selectedAlgorithm.equals("RC2") || selectedAlgorithm.equals("RC4") || selectedAlgorithm.equals("RC5")) {
+            keySize = Integer.parseInt((String) view.getKeySizeField().getText());
+        }
+        else keySize = Integer.parseInt((String) view.getKeySizeComboBox().getSelectedItem());
+        String key = ModernSymmetric.generateKey(selectedAlgorithm, keySize);
         view.getKeyField().setText(key);
     }
 
@@ -69,7 +77,7 @@ public class ModernSymmetricController implements ActionListener {
         String plainText = view.getTextArea().getText();
         String cipherText;
         try {
-            cipherText = ModrenSymmetric.encryptText(selectedAlgorithm, mode, padding, key, plainText);
+            cipherText = ModernSymmetric.encryptText(selectedAlgorithm, mode, padding, key, plainText);
             view.getTextArea().setText(cipherText);
         } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException | NoSuchAlgorithmException
                 | NoSuchPaddingException | InvalidAlgorithmParameterException e) {
@@ -86,7 +94,7 @@ public class ModernSymmetricController implements ActionListener {
         String cipherText = view.getTextArea().getText();
         String plainText;
         try {
-            plainText = ModrenSymmetric.decryptText(selectedAlgorithm, mode, padding, key, cipherText);
+            plainText = ModernSymmetric.decryptText(selectedAlgorithm, mode, padding, key, cipherText);
             view.getTextArea().setText(plainText);
         } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException | NoSuchAlgorithmException
                 | NoSuchPaddingException | InvalidAlgorithmParameterException e) {

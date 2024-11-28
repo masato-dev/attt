@@ -56,7 +56,7 @@ public class ModernSymmetricView extends JPanel {
     // RC5 key sizes
     private String[] rc5KeySize = { "0", "2040" }; // Min và Max key sizes.
 
-    private String[] algorithms = { "AES", "DES", "DESede", "Blowfish", "RC2", "RC4", "RC5" };
+    private String[] algorithms = { "AES", "DES", "DESede", "Blowfish", "RC2", "RC4", "RC5", "CAST5", "IDEA", "Camellia"};
     private String[] modes = { "ECB", "CBC", "CFB", "OFB", "CTR", "GCM", "CTS" };
     private String[] paddings = {
         "PKCS5Padding",

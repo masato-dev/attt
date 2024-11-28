@@ -18,17 +18,18 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class ModrenSymmetric {
+public class ModernSymmetric {
 
     // Hàm tạo key
-    public static String generateKey(String algorithm, int keySize) {
+    public static String generateKey(String algorithm, int keySize) throws Exception {
         try {
+            System.out.println(keySize);
             KeyGenerator keyGen = KeyGenerator.getInstance(algorithm);
             keyGen.init(keySize);
             SecretKey secretKey = keyGen.generateKey();
             return Base64.getEncoder().encodeToString(secretKey.getEncoded());
         } catch (Exception ex) {
-            throw new RuntimeException("Error generating key", ex);
+            throw new Exception("Chiều dài Key không hợp lệ");
         }
     }
 
@@ -135,4 +136,5 @@ public class ModrenSymmetric {
             return new File(fileName);
         }
     }
+
 }
