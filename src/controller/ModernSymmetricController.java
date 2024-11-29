@@ -18,15 +18,15 @@ import javax.crypto.NoSuchPaddingException;
 import javax.swing.JFileChooser;
 
 import algo.ModernSymmetric;
-import enums.Action;
+import enums.ModernSymmetricAction;
 import view.ModernSymmetricView;
 
 public class ModernSymmetricController implements ActionListener {
 
     private ModernSymmetricView view;
-    private Action action;
+    private ModernSymmetricAction action;
 
-    public ModernSymmetricController(ModernSymmetricView view, Action action) {
+    public ModernSymmetricController(ModernSymmetricView view, ModernSymmetricAction action) {
         this.view = view;
         this.action = action;
     }

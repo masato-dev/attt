@@ -23,7 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import controller.ModernSymmetricController;
-import enums.Action;
+import enums.ModernSymmetricAction;
 
 public class ModernSymmetricView extends JPanel {
     private JTextArea textArea;
@@ -95,7 +95,7 @@ public class ModernSymmetricView extends JPanel {
         JPanel keyPanel = new JPanel();
         keyField = new JTextField();
         loadKeyButton = new JButton("Tải key");
-        loadKeyButton.addActionListener(new ModernSymmetricController(this, Action.LoadKey));
+        loadKeyButton.addActionListener(new ModernSymmetricController(this, ModernSymmetricAction.LoadKey));
         keyPanel.setLayout(new GridLayout(1, 2));
         keyPanel.add(keyField);
         keyPanel.add(loadKeyButton);
@@ -117,7 +117,7 @@ public class ModernSymmetricView extends JPanel {
 
         saveKeyButton = new JButton("Lưu Key");
         panel.add(saveKeyButton);
-        saveKeyButton.addActionListener(new ModernSymmetricController(this, Action.SaveKey));
+        saveKeyButton.addActionListener(new ModernSymmetricController(this, ModernSymmetricAction.SaveKey));
 
         // Nút mã hóa
         encryptButton = new JButton("Mã hóa");
@@ -140,13 +140,13 @@ public class ModernSymmetricView extends JPanel {
         add(panel, BorderLayout.SOUTH);
 
         // Thao tác khi nút "Tạo Key" được nhấn
-        generateKeyButton.addActionListener(new ModernSymmetricController(this, Action.GenerateKey));
+        generateKeyButton.addActionListener(new ModernSymmetricController(this, ModernSymmetricAction.GenerateKey));
 
         // Thao tác khi nút "Mã hóa" được nhấn
-        encryptButton.addActionListener(new ModernSymmetricController(this, Action.Encrypt));
+        encryptButton.addActionListener(new ModernSymmetricController(this, ModernSymmetricAction.Encrypt));
 
         // Thao tác khi nút "Giải mã" được nhấn
-        decryptButton.addActionListener(new ModernSymmetricController(this, Action.Decrypt));
+        decryptButton.addActionListener(new ModernSymmetricController(this, ModernSymmetricAction.Decrypt));
 
         algorithmComboBox.addActionListener(new ActionListener() {
             @Override

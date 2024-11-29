@@ -1,5 +1,5 @@
 package enums;
 
-public enum Action {
+public enum ModernSymmetricAction {
     GenerateKey, Encrypt, Decrypt, SaveKey, LoadKey
 }
