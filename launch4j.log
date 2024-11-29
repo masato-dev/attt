@@ -1,0 +1,20 @@
+
+
+Version:	3.50
+CmdLine:	F:\Projects\Java\EncryptMidtern\App.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	F:\Projects\Java\EncryptMidtern\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+Substitute:	JAVA_HOME = 
+Substitute:	PATH = C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\PHP\php-7.4;C:\ProgramData\ComposerSetup\bin;C:\Users\thang\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\SDK\flutter\bin;C:\Users\thang\AppData\Local\Microsoft\WindowsApps;C:\Users\thang\AppData\Roaming\npm;C:\Users\thang\AppData\Roaming\Composer\vendor\bin;C:\Users\thang\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot\bin
+JRE paths:	;C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot\bin;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\PHP\php-7.4;C:\ProgramData\ComposerSetup\bin;C:\Users\thang\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\SDK\flutter\bin;C:\Users\thang\AppData\Local\Microsoft\WindowsApps;C:\Users\thang\AppData\Roaming\npm;C:\Users\thang\AppData\Roaming\Composer\vendor\bin;C:\Users\thang\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot\bin
+Check launcher:	C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot\bin\javaw.exe (OK)
+Version string: 1.021.000_005 / 64-Bit (OK)
+Launcher:	C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot\bin\javaw.exe
+Launcher args:	-jar "F:\Projects\Java\EncryptMidtern\App.exe"
+Args length:	46/32768 chars
+Exit code:	0
